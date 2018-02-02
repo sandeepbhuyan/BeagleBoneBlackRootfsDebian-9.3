@@ -1,0 +1,13 @@
+2aee5012108e4014bf82cc2143af784f  usr/bin/avahi-browse
+6a9ad5865aa534639f8860afe280f005  usr/bin/avahi-publish
+a3e6e72a44f54e232974b9331eb7a6da  usr/bin/avahi-resolve
+04be57160c0f0a82f9b98ca2207e258f  usr/bin/avahi-set-host-name
+a57181af73cf3d4c929f393db4bb8017  usr/share/doc/avahi-utils/NEWS.gz
+359847954ee1f4e9970c4afd10ce796b  usr/share/doc/avahi-utils/README
+ab000cb7fe293cb278ad0e773333a10e  usr/share/doc/avahi-utils/changelog.Debian.gz
+74defd876c65ca66c2dcd586bba3f622  usr/share/doc/avahi-utils/changelog.gz
+026515c317e1591092392844df5f1ee0  usr/share/doc/avahi-utils/copyright
+12ced1c76c58eae1315243d4d777cfcc  usr/share/man/man1/avahi-browse.1.gz
+80cbfff310808af9baa24a05ceb264bc  usr/share/man/man1/avahi-publish.1.gz
+d7fd4bfba1939fb710ab6da08bb298cd  usr/share/man/man1/avahi-resolve.1.gz
+de0c018766cc2270dd6e740180ff783e  usr/share/man/man1/avahi-set-host-name.1.gz

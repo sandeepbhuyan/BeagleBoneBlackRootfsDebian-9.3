@@ -1,0 +1,5 @@
+/etc/apport/crashdb.conf.d/connman-crashdb.conf
+/etc/connman/main.example
+/etc/dbus-1/system.d/connman.conf
+/etc/init.d/connman
+/etc/init/connman.conf

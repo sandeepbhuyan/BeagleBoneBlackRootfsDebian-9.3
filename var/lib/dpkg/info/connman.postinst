@@ -1,0 +1,95 @@
+#!/bin/sh
+
+set -e
+
+if [ -f /lib/systemd/system/connman.service ] ; then
+        #We disable nodnsproxy by default now...
+        if [ -f /etc/connman/service.set.nodnsproxy ] ; then
+                unset check_connman
+                check_connman=$(cat /lib/systemd/system/connman.service | grep ExecStart | grep nodnsproxy || true)
+                if [ "x${check_connman}" = "x" ] ; then
+                        sed -i -e 's:connmand -n:connmand -n --nodnsproxy:g' /lib/systemd/system/connman.service || true
+                        rm -rf /etc/connman/service.set.nodnsproxy || true
+                fi
+        fi
+fi
+
+if [ -f /etc/connman/main.bak ] ; then
+        if [ -f /etc/connman/main.conf ] ; then
+                rm -rf /etc/connman/main.conf || true
+        fi
+        mv /etc/connman/main.bak /etc/connman/main.conf
+fi
+
+case "$1" in
+    configure)
+        [ -x /usr/share/update-notifier/notify-reboot-required ] && /usr/share/update-notifier/notify-reboot-required
+        ;;
+esac
+
+# Automatically added by dh_systemd_enable
+# This will only remove masks created by d-s-h on package removal.
+deb-systemd-helper unmask connman-wait-online.service >/dev/null || true
+
+# was-enabled defaults to true, so new installations run enable.
+if deb-systemd-helper --quiet was-enabled connman-wait-online.service; then
+	# Enables the unit on first installation, creates new
+	# symlinks on upgrades if the unit file has changed.
+	deb-systemd-helper enable connman-wait-online.service >/dev/null || true
+else
+	# Update the statefile to add new symlinks (if any), which need to be
+	# cleaned up on purge. Also remove old symlinks.
+	deb-systemd-helper update-state connman-wait-online.service >/dev/null || true
+fi
+# End automatically added section
+# Automatically added by dh_systemd_enable
+# This will only remove masks created by d-s-h on package removal.
+deb-systemd-helper unmask connman.service >/dev/null || true
+
+# was-enabled defaults to true, so new installations run enable.
+if deb-systemd-helper --quiet was-enabled connman.service; then
+	# Enables the unit on first installation, creates new
+	# symlinks on upgrades if the unit file has changed.
+	deb-systemd-helper enable connman.service >/dev/null || true
+else
+	# Update the statefile to add new symlinks (if any), which need to be
+	# cleaned up on purge. Also remove old symlinks.
+	deb-systemd-helper update-state connman.service >/dev/null || true
+fi
+# End automatically added section
+# Automatically added by dh_installinit
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+	# In case this system is running systemd, we need to ensure that all
+	# necessary tmpfiles (if any) are created before starting.
+	if [ -d /run/systemd/system ] ; then
+		systemd-tmpfiles --create /usr/lib/tmpfiles.d/connman_resolvconf.conf >/dev/null || true
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_installinit
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+	if [ -x "/etc/init.d/connman" ]; then
+		update-rc.d connman defaults >/dev/null
+		if [ -n "$2" ]; then
+			_dh_action=restart
+		else
+			_dh_action=start
+		fi
+		invoke-rc.d connman $_dh_action || exit $?
+	fi
+fi
+# End automatically added section
+# Automatically added by dh_systemd_start
+if [ -d /run/systemd/system ]; then
+	systemctl --system daemon-reload >/dev/null || true
+	if [ -n "$2" ]; then
+		_dh_action=try-restart
+	else
+		_dh_action=start
+	fi
+	deb-systemd-invoke $_dh_action connman-wait-online.service >/dev/null || true
+fi
+# End automatically added section
+
+
+exit 0

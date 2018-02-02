@@ -1,0 +1,7 @@
+823b75e173bb4178591a9d9ccf54bba3  usr/bin/tio
+4f762b9ddea053d88d97713bc3d7eff5  usr/share/bash-completion/completions/tio
+a9bf774eb26409002dde8d352ed1f82d  usr/share/doc/tio/README
+460661086ad84792b97c1164a1414aaf  usr/share/doc/tio/changelog.Debian.gz
+7a3fa0dc5836f5405c4cf8f1724ae9ac  usr/share/doc/tio/changelog.gz
+7add8164ec96ffadfea0187795c7a45c  usr/share/doc/tio/copyright
+89d473f50e33da76f82c926a1d63bfa1  usr/share/man/man1/tio.1.gz
